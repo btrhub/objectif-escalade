@@ -258,3 +258,12 @@ sup { line-height: 0; }
 .pied p { margin: 0; }
 .pied a { text-decoration: none; }
 .pied a:hover { color: #fff; text-decoration: underline; }
+
+/* ---------- Animations d'apparition (discrètes) ----------
+   La classe .anim est posée sur <html> dans le <head> ; sans JS ou avec
+   « réduire les animations », tout reste affiché normalement. */
+.anim .apparait { opacity: 0; transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.2,.7,.2,1) var(--delai, 0s), transform .7s cubic-bezier(.2,.7,.2,1) var(--delai, 0s); }
+.anim .apparait.visible { opacity: 1; transform: none; }
+.anim #accueil .heros > img { animation: recul 1.8s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes recul { from { transform: scale(1.06); } to { transform: none; } }

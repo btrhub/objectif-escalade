@@ -37,6 +37,33 @@ window.addEventListener('resize', auDefilement);
 majEntete();
 majMenu();
 
+// Apparition des blocs au défilement
+if (document.documentElement.classList.contains('anim') && 'IntersectionObserver' in window) {
+  const blocs = [];
+  // Blocs qui apparaissent seuls
+  document.querySelectorAll([
+    '.section > .conteneur > h2', '.section > .conteneur > .actions',
+    '.presentation > *', '.socle__grille > div', '.accroche-bulle',
+    '.encart', '.stage', '.contact__grille > *'
+  ].join(',')).forEach(el => blocs.push(el));
+  // Listes dont les éléments apparaissent en léger décalé
+  document.querySelectorAll('.heros__texte, .topo__grille, .coches, .formules').forEach(liste => {
+    [...liste.children].forEach((el, i) => {
+      el.style.setProperty('--delai', Math.min(i * 0.09, 0.45) + 's');
+      blocs.push(el);
+    });
+  });
+
+  const observateur = new IntersectionObserver(entrees => {
+    entrees.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      observateur.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  blocs.forEach(el => { el.classList.add('apparait'); observateur.observe(el); });
+}
+
 // Formulaire de contact
 const formulaire = document.getElementById('formulaire');
 if (formulaire) {
