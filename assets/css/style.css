@@ -75,35 +75,37 @@ sup { line-height: 0; }
 .drapeaux li:nth-child(4) { background: var(--orange); }
 
 /* ---------- En-tête ---------- */
+/* Fixe en haut. Transparent sur la première photo, puis verre dépoli.
+   Les onglets restent visibles sur mobile : on sait toujours où on est. */
 .entete { position: fixed; inset: 0 0 auto; z-index: 20; color: #fff; transition: background .3s, color .3s, box-shadow .3s; }
-.entete.plein, .entete.ouvert { background: var(--blanc); color: var(--nuit); box-shadow: 0 1px 0 rgba(21,27,43,.08); }
-.entete__barre { display: flex; align-items: center; justify-content: space-between; height: 4.25rem; }
-.logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; font-family: var(--titre); font-weight: 700; font-size: 1.1rem; }
+.entete.plein { background: rgba(255,255,255,.82); color: var(--nuit); box-shadow: 0 1px 0 rgba(21,27,43,.08), 0 8px 24px rgba(21,27,43,.06);
+  -webkit-backdrop-filter: saturate(1.6) blur(14px); backdrop-filter: saturate(1.6) blur(14px); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .entete.plein { background: var(--blanc); } }
+.entete__barre { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 4.25rem; }
+.logo { display: flex; align-items: center; gap: .6rem; flex: none; text-decoration: none; font-family: var(--titre); font-weight: 700; font-size: 1.1rem; }
 .logo img { height: 30px; width: auto; }
 .logo .noir { display: none; }
-.plein .logo .noir, .ouvert .logo .noir { display: block; }
-.plein .logo .blanc, .ouvert .logo .blanc { display: none; }
-.nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
-.nav a { text-decoration: none; font-weight: 600; padding-block: .3rem; border-bottom: 2px solid transparent; }
-.nav a { transition: border-color .2s, color .2s; }
-.nav a:hover, .nav a[aria-current] { border-bottom-color: var(--ciel); }
-.burger { display: none; background: none; border: 0; color: inherit; padding: .5rem; cursor: pointer; }
-.burger span { display: block; width: 26px; height: 2px; background: currentColor; margin: 6px 0; transition: transform .25s, opacity .25s; }
+.plein .logo .noir { display: block; }
+.plein .logo .blanc { display: none; }
+.nav ul { display: flex; gap: .25rem; list-style: none; margin: 0; padding: 0; }
+.nav a { display: block; text-decoration: none; font-weight: 600; white-space: nowrap; padding: .45rem 1rem; border-radius: 999px; transition: background .25s; }
+.nav a:hover { background: rgba(255,255,255,.16); }
+.plein .nav a:hover { background: rgba(21,27,43,.06); }
+.nav a[aria-current], .nav a[aria-current]:hover { background: var(--ciel); color: #fff; }
 @media (max-width: 760px) {
-  .burger { display: block; }
-  .nav { position: fixed; inset: 4.25rem 0 auto; background: var(--blanc); color: var(--nuit);
-    padding: 1.5rem var(--marge) 2rem; transform: translateY(-130%); transition: transform .3s; box-shadow: 0 12px 24px rgba(21,27,43,.15); }
-  .nav ul { flex-direction: column; gap: 1rem; }
-  .nav a { font-family: var(--titre); font-size: 1.6rem; font-weight: 700; }
-  .ouvert .nav { transform: none; }
-  .ouvert .burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-  .ouvert .burger span:nth-child(2) { opacity: 0; }
-  .ouvert .burger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  .entete__barre { height: 3.75rem; gap: .5rem; }
+  .logo span { display: none; }            /* logo seul, la place va aux onglets */
+  .logo img { height: 26px; }
+  .nav a { font-size: .88rem; padding: .4rem .7rem; }
+  .nav ul { gap: .1rem; }
 }
+@media (max-width: 370px) { .nav a { font-size: .8rem; padding: .38rem .55rem; } }
 
 /* ---------- Héros ---------- */
 .heros { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: #fff; background: var(--nuit); overflow: hidden; }
-.heros > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.heros > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
+/* Sur téléphone (écran en hauteur), on ne voit qu'une bande de la photo : cadrage spécifique */
+@media (max-width: 760px) { .heros > img { object-position: var(--pos-mobile, var(--pos, 50% 50%)); } }
 .heros::after { content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(21,27,43,.5) 0%, rgba(21,27,43,0) 28%, rgba(21,27,43,.25) 55%, rgba(21,27,43,.92) 100%); }
 .heros__texte { position: relative; z-index: 1; padding-block: 7rem clamp(3rem, 8vw, 5.5rem); }
@@ -184,6 +186,11 @@ sup { line-height: 0; }
 .badge { position: absolute; top: -1.6rem; right: .5rem; background: var(--orange); color: #fff; font-family: var(--titre); font-weight: 700;
   font-size: .82rem; line-height: 1.15; text-align: center; padding: .55em 1.2em; border-radius: 50%; transform: rotate(8deg); max-width: 60%; box-shadow: 0 4px 10px rgba(242,154,18,.35); }
 .badge small { display: block; font-size: .8em; font-weight: 600; }
+@media (max-width: 560px) {
+  .badge { position: static; align-self: flex-start; order: -1; max-width: none; margin: 0 0 1rem; border-radius: 999px; padding: .4em 1em; transform: rotate(-2deg); }
+  .badge small { display: inline; margin-left: .35em; }
+  .badge small::before { content: "· "; }
+}
 .formule__accroche { font-weight: 700; font-style: italic; font-size: 1.1rem; margin-bottom: 1rem; }
 .formule--solo .formule__accroche, .formule--solo h4 { color: #0F74AE; }
 .formule--groupe .formule__accroche, .formule--groupe h4 { color: #168547; }

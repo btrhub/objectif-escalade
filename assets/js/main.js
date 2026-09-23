@@ -37,19 +37,6 @@ window.addEventListener('resize', auDefilement);
 majEntete();
 majMenu();
 
-// Menu mobile
-const burger = document.querySelector('.burger');
-burger.addEventListener('click', () => {
-  const ouvert = entete.classList.toggle('ouvert');
-  burger.setAttribute('aria-expanded', ouvert);
-  burger.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
-});
-document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => {
-  entete.classList.remove('ouvert');
-  burger.setAttribute('aria-expanded', false);
-  burger.setAttribute('aria-label', 'Ouvrir le menu');
-}));
-
 // Formulaire de contact
 const formulaire = document.getElementById('formulaire');
 if (formulaire) {
