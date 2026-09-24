@@ -166,7 +166,13 @@ sup { line-height: 0; }
 
 .socle { background-color: var(--roi); background-image: var(--rayures); color: #fff; }
 .socle__grille { display: grid; gap: 2rem; }
-@media (min-width: 860px) { .socle__grille { grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; } }
+@media (min-width: 860px) { .socle__grille { grid-template-columns: 1fr auto; gap: 4rem; align-items: center; } }
+.socle .coches { margin-top: 2rem; }
+/* Capture de l'appli dans un cadre de téléphone, légèrement inclinée (comme sur le flyer) */
+.telephone { margin: 0 auto; width: min(62vw, 260px); }
+.telephone img { width: 100%; border: 7px solid #0F1420; border-radius: 30px; background: #0F1420;
+  box-shadow: 0 24px 48px rgba(15,20,32,.35), 0 4px 12px rgba(15,20,32,.25); transform: rotate(3deg); }
+@media (min-width: 860px) { .telephone { width: 270px; margin: 0; } }
 .coches { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
 @media (min-width: 560px) { .coches { grid-template-columns: 1fr 1fr; } }
 .coches li { position: relative; padding-left: 1.9rem; }
@@ -244,6 +250,8 @@ sup { line-height: 0; }
 .formulaire .btn:disabled { opacity: .6; cursor: wait; }
 .formulaire__statut { grid-column: 1 / -1; margin: 0; font-weight: 600; }
 .formulaire__statut:empty { display: none; }
+.formulaire__mention { grid-column: 1 / -1; margin: 0; font-size: .85rem; color: var(--gris); }
+.formulaire__mention a { color: inherit; }
 .formulaire__statut.ok { color: #168547; }
 .formulaire__statut.erreur { color: #C0392B; }
 .piege { position: absolute; left: -9999px; }
@@ -257,7 +265,28 @@ sup { line-height: 0; }
 .pied img { height: 56px; width: auto; }
 .pied p { margin: 0; }
 .pied a { text-decoration: none; }
-.pied a:hover { color: #fff; text-decoration: underline; }
+.pied a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.3); }
+.pied a:hover { color: #fff; text-decoration-color: currentColor; }
+
+/* ---------- Page CGV ---------- */
+.legal { padding-top: calc(4.25rem + clamp(2.5rem, 6vw, 4rem)); }
+.legal article { max-width: 46rem; }
+.legal h1 { font-size: clamp(2rem, 5vw, 3rem); }
+.legal h2 { font-size: clamp(1.2rem, 2.6vw, 1.45rem); font-weight: 700; margin: 2.75rem 0 .9rem; padding-top: .25rem; scroll-margin-top: 5.5rem; }
+.legal p, .legal li { max-width: none; font-size: 1rem; }
+.legal ul { padding-left: 1.25rem; margin: 0 0 1em; }
+.legal li { margin-bottom: .4rem; }
+.legal a { color: #0F74AE; overflow-wrap: anywhere; }
+.legal__version { color: var(--gris); margin-bottom: 2rem; }
+.legal__intro { background: var(--blanc); border: 1px solid #E3E8F0; border-left: 4px solid var(--ciel); border-radius: 0 12px 12px 0; padding: 1.25rem 1.5rem; }
+.legal__intro p { margin: 0 0 .35rem; }
+.legal__intro p:last-child { margin: 0; }
+.legal__sommaire { margin-top: 2rem; }
+.legal__sommaire > p { font-family: var(--titre); font-weight: 700; margin-bottom: .5rem; }
+.legal__sommaire ol { margin: 0; padding-left: 0; list-style: none; columns: 2 18rem; column-gap: 2rem; }
+.legal__sommaire li { margin-bottom: .3rem; break-inside: avoid; }
+.legal__sommaire a { text-decoration: none; }
+.legal__sommaire a:hover { text-decoration: underline; }
 
 /* ---------- Animations d'apparition (discrètes) ----------
    La classe .anim est posée sur <html> dans le <head> ; sans JS ou avec

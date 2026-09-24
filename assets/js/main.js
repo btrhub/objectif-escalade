@@ -43,7 +43,7 @@ if (document.documentElement.classList.contains('anim') && 'IntersectionObserver
   // Blocs qui apparaissent seuls
   document.querySelectorAll([
     '.section > .conteneur > h2', '.section > .conteneur > .actions',
-    '.presentation > *', '.socle__grille > div', '.accroche-bulle',
+    '.presentation > *', '.socle__grille > *', '.accroche-bulle',
     '.encart', '.stage', '.contact__grille > *'
   ].join(',')).forEach(el => blocs.push(el));
   // Listes dont les éléments apparaissent en léger décalé
