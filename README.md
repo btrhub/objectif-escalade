@@ -19,6 +19,11 @@ Les demandes du formulaire arrivent par e-mail via le service gratuit Web3Forms 
 Les boutons « Réserver ma place », « Rejoindre le groupe » et « Proposer un projet de stage » descendent
 au formulaire et pré-sélectionnent l'objet (attribut `data-objet`).
 
+## Après une modification du CSS ou du JS
+Les pages chargent `style.css?v=AAAAMMJJ` et `main.js?v=AAAAMMJJ`. Changer ce numéro (dans
+index.html, cgv.html et mentions-legales.html) force les navigateurs à recharger les fichiers
+au lieu d'utiliser une ancienne version en cache.
+
 ## Mise en ligne sur GitHub Pages
 1. Créer un dépôt et y déposer le contenu de ce dossier (index.html à la racine).
 2. Settings > Pages > Source : « Deploy from a branch », branche `main`, dossier `/ (root)`.
